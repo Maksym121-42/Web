@@ -1,0 +1,168 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Segoe UI', Tahoma, sans-serif;
+}
+
+body{
+  background:#f8fafc;
+  color:#1e293b;
+  line-height:1.6;
+}
+
+.blockA{
+  background:white;
+  padding:20px 60px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  box-shadow:0 4px 20px rgba(0,0,0,0.05);
+  position:sticky;
+  top:0;
+  z-index:100;
+}
+
+.blockA strong{
+  font-size:20px;
+  color:#2563eb;
+}
+
+.blockA_list{
+  list-style:none;
+  display:flex;
+  gap:30px;
+}
+
+.blockA a{
+  text-decoration:none;
+  color:#334155;
+  font-weight:500;
+  transition:0.3s;
+}
+
+.blockA a:hover{
+  color:#2563eb;
+}
+
+.blockB{
+  background:linear-gradient(120deg,#2563eb,#38bdf8);
+  color:white;
+  text-align:center;
+  padding:100px 20px;
+}
+
+.blockB h1{
+  font-size:42px;
+  margin-bottom:20px;
+}
+
+.blockB p{
+  font-size:18px;
+  opacity:0.95;
+}
+
+.wrapMain{
+  max-width:1100px;
+  margin:auto;
+  padding:80px 20px;
+}
+
+.titleMain{
+  font-size:30px;
+  margin-bottom:40px;
+  text-align:center;
+  color:#2563eb;
+}
+
+.flexBoxA{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:60px;
+  align-items:center;
+}
+
+.textSide{
+  font-size:17px;
+}
+
+.textSide p{
+  margin-bottom:20px;
+}
+
+.imageSide{
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+}
+
+.imageSide img{
+  width:100%;
+  border-radius:16px;
+  box-shadow:0 15px 40px rgba(0,0,0,0.1);
+}
+
+.wrapExtra table{
+  width:100%;
+  border-collapse:collapse;
+  background:white;
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 15px 40px rgba(0,0,0,0.08);
+}
+
+.wrapExtra th{
+  background:#2563eb;
+  color:white;
+  padding:15px;
+  text-align:left;
+}
+
+.wrapExtra td{
+  padding:15px;
+  border-bottom:1px solid #e2e8f0;
+  vertical-align:top;
+}
+
+.wrapExtra tr:hover{
+  background:#f1f5f9;
+}
+
+.contactWrap{
+  display:flex;
+  justify-content:center;
+}
+
+.contactItem{
+  background:white;
+  padding:40px;
+  border-radius:16px;
+  box-shadow:0 15px 40px rgba(0,0,0,0.08);
+  width:350px;
+  text-align:center;
+  transition:0.3s;
+}
+
+.contactItem:hover{
+  transform:translateY(-8px);
+}
+
+.contactItem h3{
+  margin-bottom:20px;
+  color:#2563eb;
+}
+
+@media(max-width:768px){
+  .flexBoxA{
+    grid-template-columns:1fr;
+    text-align:center;
+  }
+
+  .blockA{
+    padding:20px;
+  }
+
+  .imageSide{
+    gap:16px;
+  }
+}
