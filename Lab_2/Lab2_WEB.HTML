@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Лабораторна 2 — КРМ</title>
+  <link rel="stylesheet" href="Lab2_WEB.CSS" />
+</head>
+<body>
+  <main class="wrap">
+    <h1>Моніторинг КРМ (Варіант 11)</h1>
+    <p class="sub">Імітація даних у реальному часі (без доступу до реального об’єкта)</p>
+
+    <section class="controls">
+      <button id="manualBtn">Оновити зараз</button>
+      <button id="toggleAutoBtn">Пауза автооновлення</button>
+      <label>
+        Інтервал (сек):
+        <input id="intervalInput" type="number" min="1" max="30" value="3" />
+      </label>
+      <button id="applyIntervalBtn">Застосувати</button>
+    </section>
+
+    <section id="cards" class="grid"></section>
+    <p id="lastUpdate" class="last-update">Останнє оновлення: —</p>
+  </main>
+
+  <script src="Lab2_WEB.JS"></script>
+</body>
+</html>
