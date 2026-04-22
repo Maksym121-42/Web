@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ЕСКО договори</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Реєстрація договорів</h1>
+
+    <div class="layout">
+      <section class="card">
+        <h2>Форма</h2>
+        <form action="/submit" method="post" class="form-grid">
+          <label>Номер
+            <input name="number" type="number" min="1" required>
+          </label>
+
+          <label>Замовник
+            <input name="customer" required>
+          </label>
+
+          <label>Об'єкт
+            <input name="object" required>
+          </label>
+
+          <label>Вартість
+            <input name="cost" type="number" min="0" required>
+          </label>
+
+          <label>Економія
+            <input name="economy" type="number" min="0" required>
+          </label>
+
+          <label>Терміни
+            <input name="terms" required>
+          </label>
+
+          <button type="submit">Зберегти</button>
+        </form>
+      </section>
+
+      <section class="card">
+        <div class="head-row">
+          <h2>Зареєстровані</h2>
+          <button type="button" id="refreshBtn">Оновити</button>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Номер</th>
+                <th>Замовник</th>
+                <th>Об'єкт</th>
+                <th>Вартість</th>
+                <th>Економія</th>
+                <th>Терміни</th>
+              </tr>
+            </thead>
+            <tbody id="rows">
+              <tr><td colspan="7">Завантаження...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    async function loadRecords() {
+      const rows = document.getElementById("rows");
+      rows.innerHTML = "<tr><td colspan='7'>Завантаження...</td></tr>";
+
+      try {
+        const res = await fetch("/records");
+        const data = await res.json();
+
+        if (!Array.isArray(data) || data.length === 0) {
+          rows.innerHTML = "<tr><td colspan='7'>Поки немає записів</td></tr>";
+          return;
+        }
+
+        rows.innerHTML = data.map((item, i) => `
+          <tr>
+            <td>${i + 1}</td>
+            <td>${item.number ?? ""}</td>
+            <td>${item.customer ?? ""}</td>
+            <td>${item.object ?? ""}</td>
+            <td>${item.cost ?? ""}</td>
+            <td>${item.economy ?? ""}</td>
+            <td>${item.terms ?? ""}</td>
+          </tr>
+        `).join("");
+      } catch {
+        rows.innerHTML = "<tr><td colspan='7'>Помилка завантаження</td></tr>";
+      }
+    }
+
+    document.getElementById("refreshBtn").addEventListener("click", loadRecords);
+    loadRecords();
+  </script>
+</body>
+</html>
