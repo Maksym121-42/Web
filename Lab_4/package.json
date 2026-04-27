@@ -1,0 +1,12 @@
+{
+  "name": "high-voltage-circuit-breakers-api",
+  "version": "1.0.0",
+  "description": "Simple Express API + page for circuit breakers",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

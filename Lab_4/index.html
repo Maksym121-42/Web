@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Високовольтні вимикачі</title>
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --line: #d9e0ea;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --primary: #1f6feb;
+      --primary-hover: #1859bc;
+      --ok: #0f9d58;
+      --err: #d93025;
+      --radius: 12px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      padding: 20px;
+    }
+
+    .wrap {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 24px;
+    }
+
+    .hint {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .col-2 { grid-column: span 2; }
+    .col-3 { grid-column: span 3; }
+    .col-4 { grid-column: span 4; }
+    .col-6 { grid-column: span 6; }
+    .col-12 { grid-column: span 12; }
+
+    @media (max-width: 900px) {
+      .col-2, .col-3, .col-4, .col-6 { grid-column: span 12; }
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    input, select, button {
+      width: 100%;
+      height: 40px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      font-size: 14px;
+      padding: 0 12px;
+      background: #fff;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      background: var(--primary);
+      color: #fff;
+      font-weight: 600;
+    }
+
+    button:hover { background: var(--primary-hover); }
+
+    .btn-muted {
+      background: #eef2f7;
+      color: #111827;
+      border: 1px solid var(--line);
+    }
+
+    .btn-muted:hover { background: #e5ebf3; }
+
+    .status {
+      margin-top: 8px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .status.ok { color: var(--ok); }
+    .status.err { color: var(--err); }
+
+    pre {
+      margin: 0;
+      background: #0f172a;
+      color: #e2e8f0;
+      border-radius: 10px;
+      padding: 14px;
+      overflow: auto;
+      min-height: 160px;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+
+    th, td {
+      border: 1px solid var(--line);
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background: #f1f5f9;
+      font-weight: 600;
+    }
+
+    .small {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1>REST API: Високовольтні вимикачі</h1>
+      <p class="hint">Працюємо з endpoint-ами через кнопки. Результат бачиш нижче.</p>
+    </div>
+
+    <div class="card">
+      <div class="row">
+        <div class="col-2">
+          <label>ID вимикача</label>
+          <input id="id" type="number" placeholder="1" />
+        </div>
+
+        <div class="col-2">
+          <label>Назва (name)</label>
+          <input id="name" type="text" placeholder="QF-110-1" />
+        </div>
+
+        <div class="col-2">
+          <label>Напруга, кВ</label>
+          <input id="voltage" type="number" placeholder="110" />
+        </div>
+
+        <div class="col-2">
+          <label>Струм, А</label>
+          <input id="current" type="number" placeholder="1600" />
+        </div>
+
+        <div class="col-2">
+          <label>Тип приводу</label>
+          <select id="mechanism">
+            <option value="">-- обери --</option>
+            <option value="spring">spring</option>
+            <option value="hydraulic">hydraulic</option>
+            <option value="motor">motor</option>
+          </select>
+        </div>
+
+        <div class="col-2">
+          <label>Час спрац., мс</label>
+          <input id="operationTime" type="number" placeholder="45" />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-2"><button onclick="getAll()">GET всі</button></div>
+        <div class="col-2"><button onclick="getOne()">GET по ID</button></div>
+        <div class="col-2"><button onclick="getHistory()">GET історія</button></div>
+        <div class="col-2"><button onclick="doSwitch()">POST switch</button></div>
+        <div class="col-2"><button onclick="updateOne()">PUT update</button></div>
+        <div class="col-2"><button class="btn-muted" onclick="removeOne()">DELETE</button></div>
+      </div>
+
+      <div id="status" class="status">Готово до запитів</div>
+      <div class="small">Для `PUT update` можна заповнювати не всі поля, лише ті, які хочеш змінити.</div>
+    </div>
+
+    <div class="card">
+      <div id="tableBox"></div>
+      <pre id="out">Тут буде JSON результат...</pre>
+    </div>
+  </div>
+
+  <script>
+    const out = document.getElementById("out");
+    const tableBox = document.getElementById("tableBox");
+    const statusEl = document.getElementById("status");
+    const base = "/api/circuit-breakers";
+
+    function idVal() {
+      return document.getElementById("id").value.trim();
+    }
+
+    function setStatus(text, ok = true) {
+      statusEl.textContent = text;
+      statusEl.className = "status " + (ok ? "ok" : "err");
+    }
+
+    function showJSON(data) {
+      out.textContent = JSON.stringify(data, null, 2);
+    }
+
+    function renderTable(data) {
+      if (!Array.isArray(data)) {
+        tableBox.innerHTML = "";
+        return;
+      }
+
+      const rows = data.map((b) => `
+        <tr>
+          <td>${b.id}</td>
+          <td>${b.name}</td>
+          <td>${b.voltage}</td>
+          <td>${b.current}</td>
+          <td>${b.position}</td>
+          <td>${b.switchingCount}</td>
+          <td>${b.mechanism}</td>
+          <td>${b.operationTime}</td>
+        </tr>
+      `).join("");
+
+      tableBox.innerHTML = `
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th><th>Name</th><th>kV</th><th>A</th>
+              <th>Position</th><th>Count</th><th>Mechanism</th><th>ms</th>
+            </tr>
+          </thead>
+          <tbody>${rows}</tbody>
+        </table>
+      `;
+    }
+
+    async function request(url, options = {}) {
+      try {
+        const res = await fetch(url, options);
+        const data = await res.json();
+
+        showJSON(data);
+        renderTable(Array.isArray(data) ? data : null);
+
+        if (res.ok) setStatus("Запит виконано успішно");
+        else setStatus("Помилка: " + (data.error || "невідомо"), false);
+      } catch (e) {
+        setStatus("Помилка мережі: " + e.message, false);
+        showJSON({ error: e.message });
+        tableBox.innerHTML = "";
+      }
+    }
+
+    function getAll() {
+      request(base);
+    }
+
+    function getOne() {
+      request(`${base}/${idVal()}`);
+    }
+
+    function getHistory() {
+      request(`${base}/${idVal()}/history`);
+    }
+
+    function doSwitch() {
+      request(`${base}/${idVal()}/switch`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({})
+      });
+    }
+
+    function updateOne() {
+      const body = {};
+      const name = document.getElementById("name").value.trim();
+      const voltage = document.getElementById("voltage").value.trim();
+      const current = document.getElementById("current").value.trim();
+      const mechanism = document.getElementById("mechanism").value;
+      const operationTime = document.getElementById("operationTime").value.trim();
+
+      if (name) body.name = name;
+      if (voltage) body.voltage = Number(voltage);
+      if (current) body.current = Number(current);
+      if (mechanism) body.mechanism = mechanism;
+      if (operationTime) body.operationTime = Number(operationTime);
+
+      request(`${base}/${idVal()}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+      });
+    }
+
+    function removeOne() {
+      request(`${base}/${idVal()}`, { method: "DELETE" });
+    }
+
+    getAll();
+  </script>
+</body>
+</html>
