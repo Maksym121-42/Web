@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Варіант 11 - Моніторинг якості електроенергії</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>Моніторинг якості електроенергії</h1>
+    <p class="sub">Об'єкт: пункт вимірювання якості електроенергії</p>
+    <div id="status" class="status">Підключення...</div>
+
+    <div class="cards">
+      <div class="card"><p>Відхилення напруги</p><h2 id="valVoltage">-- %</h2></div>
+      <div class="card"><p>Коеф. несиметрії</p><h2 id="valUnbalance">--</h2></div>
+      <div class="card"><p>THD</p><h2 id="valThd">-- %</h2></div>
+      <div class="card"><p>Фліккер</p><h2 id="valFlicker">--</h2></div>
+      <div class="card"><p>Частота</p><h2 id="valFreq">-- Гц</h2></div>
+    </div>
+
+    <section class="panel">
+      <h3>Індикатори відповідності нормам</h3>
+      <div class="norm-grid">
+        <div id="nVoltage" class="norm-item">Відхилення напруги: --</div>
+        <div id="nUnbalance" class="norm-item">Несиметрія: --</div>
+        <div id="nThd" class="norm-item">THD: --</div>
+        <div id="nFlicker" class="norm-item">Фліккер: --</div>
+        <div id="nFreq" class="norm-item">Частота: --</div>
+      </div>
+    </section>
+
+    <div class="grid">
+      <section class="panel">
+        <h3>Графік форми сигналу напруги</h3>
+        <canvas id="waveChart"></canvas>
+      </section>
+      <section class="panel">
+        <h3>Спектральний аналіз гармонік</h3>
+        <canvas id="harmChart"></canvas>
+      </section>
+    </div>
+
+    <section class="panel">
+      <h3>Таблиця показників якості</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Час</th>
+            <th>Відхилення U (%)</th>
+            <th>Несиметрія</th>
+            <th>THD (%)</th>
+            <th>Фліккер</th>
+            <th>Частота (Гц)</th>
+            <th>Стан</th>
+          </tr>
+        </thead>
+        <tbody id="historyBody"></tbody>
+      </table>
+    </section>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
