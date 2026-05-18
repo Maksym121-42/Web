@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Grid Portal</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="container">
+    <h1>Smart Grid Portal</h1>
+
+    <section class="card">
+      <h2>CSRF</h2>
+      <button id="btnCsrf">GET /auth/csrf-token</button>
+      <p id="csrfView" class="small"></p>
+    </section>
+
+    <section class="card">
+      <h2>Реєстрація</h2>
+      <input id="regEmail" placeholder="email" />
+      <input id="regName" placeholder="name" />
+      <input id="regPassword" placeholder="password" type="password" />
+      <select id="regRole">
+        <option value="operator">operator</option>
+        <option value="analyst">analyst</option>
+        <option value="administrator">administrator</option>
+      </select>
+      <button id="btnRegister">POST /auth/register</button>
+    </section>
+
+    <section class="card">
+      <h2>Логін</h2>
+      <input id="loginEmail" placeholder="email" />
+      <input id="loginPassword" placeholder="password" type="password" />
+      <button id="btnLogin">POST /auth/login</button>
+      <button id="btnLogout">POST /auth/logout</button>
+      <button id="btnStatus">GET /auth/status</button>
+    </section>
+
+    <section class="card">
+      <h2>Зміна пароля (rotation)</h2>
+      <input id="newPassword" placeholder="new password" type="password" />
+      <button id="btnRotate">POST /auth/rotate-password</button>
+    </section>
+
+    <section class="card">
+      <h2>API</h2>
+      <button id="btnBalance">GET /api/grid/balance</button>
+
+      <div class="row">
+        <input id="adjMw" type="number" placeholder="changeMw (наприклад 5 або -3)" />
+        <input id="adjReason" placeholder="reason" />
+      </div>
+      <button id="btnAdjust">POST /api/grid/adjust</button>
+
+      <button id="btnForecast">GET /api/forecasts</button>
+
+      <div class="row">
+        <select id="cfgMode">
+          <option value="auto">auto</option>
+          <option value="manual">manual</option>
+        </select>
+        <input id="cfgReserve" type="number" placeholder="reservePercent" />
+      </div>
+      <button id="btnConfig">POST /api/system/config</button>
+    </section>
+
+    <section class="card">
+      <h2>Відповідь</h2>
+      <pre id="out"></pre>
+    </section>
+  </main>
+
+  <script src="client.js"></script>
+</body>
+</html>
