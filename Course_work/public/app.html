@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Нотатки - Робоче меню</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <section class="topbar">
+        <button id="menuBtn">Меню</button>
+        <div class="cell">
+          <strong>Активна нотатка:</strong>
+          <span id="activeNoteLabel">-</span>
+        </div>
+        <div class="cell">
+          <strong>Лічильник символів:</strong>
+          <span id="charCountLabel">0</span>
+        </div>
+        <div class="cell">
+          <strong>Збережено:</strong>
+          <span id="savedAtLabel">-</span>
+        </div>
+        <button id="saveBtn" class="primary">Зберегти</button>
+      </section>
+
+      <section class="layout">
+        <aside id="sidebar" class="sidebar">
+          <nav>
+            <button id="navHome">Головна</button>
+            <button id="navCreate">Створити нотатку</button>
+            <button id="navMy">Мої нотатки</button>
+            <button id="navShared">Спільний доступ</button>
+            <button id="navProfile">Профіль</button>
+            <button id="navAdmin">Адмін</button>
+            <button id="logoutBtn">Вихід</button>
+          </nav>
+        </aside>
+
+        <section class="notes-panel">
+          <h3>Каталог</h3>
+          <div class="field">
+            <label for="searchInput">Пошук нотаток</label>
+            <input id="searchInput" type="text" placeholder="Введіть назву..." />
+          </div>
+          <div id="notesList" class="notes-list"></div>
+        </section>
+
+        <section class="editor-panel">
+          <h3 id="editorTitle">Редактор</h3>
+
+          <div id="editorBox">
+            <div class="field">
+              <label for="titleInput">Назва</label>
+              <input id="titleInput" type="text" />
+            </div>
+            <div class="field">
+              <label for="contentInput">Текст нотатки</label>
+              <textarea id="contentInput"></textarea>
+            </div>
+            <div class="editor-toolbar">
+              <button id="deleteBtn">Видалити</button>
+            </div>
+            <div class="profile-box">
+              <h4>Поділитися нотаткою</h4>
+              <div class="field">
+                <label for="shareEmailInput">Email користувача</label>
+                <input id="shareEmailInput" type="email" />
+              </div>
+              <div class="field">
+                <label for="sharePermissionSelect">Дозвіл</label>
+                <select id="sharePermissionSelect">
+                  <option value="1">Перегляд (view)</option>
+                  <option value="2">Редагування (edit)</option>
+                </select>
+              </div>
+              <button id="shareBtn">Поділитися</button>
+              <div id="shareList" class="profile-box" style="margin-top: 12px"></div>
+            </div>
+          </div>
+
+                    <div id="homeBox" class="profile-box hidden">
+            <h3>Головна</h3>
+            <p class="home-intro">Коротка інструкція, щоб швидко почати роботу:</p>
+
+            <div class="home-guide">
+              <article class="home-guide-item">
+                <h4>1) Створення нотатки</h4>
+                <p>
+                  Натисніть <strong>"Створити нотатку"</strong> у меню зліва. Введіть назву,
+                  додайте текст у редакторі та збережіть кнопкою <strong>"Зберегти"</strong>.
+                </p>
+              </article>
+
+              <article class="home-guide-item">
+                <h4>2) Мої нотатки</h4>
+                <p>
+                  У розділі <strong>"Мої нотатки"</strong> бачите свій список. Ліворуч можна
+                  скористатися пошуком, а при відкритті нотатки доступні редагування і видалення.
+                </p>
+              </article>
+
+              <article class="home-guide-item">
+                <h4>3) Поділитися нотаткою</h4>
+                <p>
+                  Відкрийте свою нотатку, введіть email користувача і оберіть право:
+                  <strong>view</strong> (лише перегляд) або <strong>edit</strong> (перегляд + редагування).
+                </p>
+              </article>
+
+              <article class="home-guide-item">
+                <h4>4) Отримані нотатки</h4>
+                <p>
+                  У розділі <strong>"Спільний доступ"</strong> показані нотатки, якими з вами поділилися.
+                  Що саме можна робити з ними, залежить від виданого дозволу.
+                </p>
+              </article>
+
+              <article class="home-guide-item">
+                <h4>5) Профіль та адмін</h4>
+                <p>
+                  У <strong>"Профіль"</strong> є інформація про акаунт і статистика.
+                  Розділ <strong>"Адмін"</strong> доступний тільки користувачу з роллю адміністратора.
+                </p>
+              </article>
+            </div>
+          </div>
+          <div id='profileBox' class='profile-box hidden'></div>
+          <div id="adminBox" class="profile-box hidden"></div>
+
+          <p id="appMessage" class="message"></p>
+        </section>
+      </section>
+    </main>
+
+    <script src="/app.js"></script>
+  </body>
+</html>

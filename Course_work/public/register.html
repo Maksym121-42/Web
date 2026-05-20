@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Нотатки - Реєстрація</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="auth-page">
+      <h1 class="auth-title">Нотатки</h1>
+
+      <form id="registerForm" class="auth-card">
+        <div class="field">
+          <label for="name_user">Name</label>
+          <input id="name_user" name="name_user" type="text" required />
+        </div>
+
+        <div class="field">
+          <label for="email_user">Email</label>
+          <input id="email_user" name="email_user" type="email" required />
+        </div>
+
+        <div class="field">
+          <label for="password_user">Password</label>
+          <input id="password_user" name="password_user" type="password" required />
+        </div>
+      </form>
+
+      <div class="auth-actions">
+        <button id="registerBtn" type="button">Register</button>
+      </div>
+
+      <div class="auth-actions">
+        <button id="toLoginBtn" type="button">Back to login</button>
+      </div>
+
+      <p id="message" class="message"></p>
+    </main>
+
+    <script src="/register.js"></script>
+  </body>
+</html>
